@@ -1,15 +1,24 @@
-## 2233
+# 2233
 
 - 目前是爬取指定av号的弹幕存到本地。原理是贴吧上看到的2233
 - 弹幕信息有内容，时间，和时间2233
 - 当初hackPKU的第三天上午撸了2,3小时的个说2233
-- 使用方法 python bilibili.py av_number
-  - 例如 python bilibili.py 10492 （这个资源被封了。好像有办法拿到。但不是我的关注点
-  - python bilibili.py 1314520
-- 合集的弹幕似乎有问题下一个commit再处理。
-- 之后可能尝试做个api。。
+- 下个版本可能做一些批量的啥啥
 
 ## 说明
+
+### 使用方法
+
+```
+------------------------------------------------------
+|the Most easy usage is :python bilibili.py av_number|
+------------------------------------------------------
+and there are some argv to optional
+-h, --help: to get this.
+-v, --version: to get the version
+-o filename, --output filename: to output danmus in filename.txt
+-x, --xml: to get filename.xml
+```
 
 ### 示例
 ![python bilibili.py 5227685](./res/use.png)
@@ -32,5 +41,6 @@
 ### 版本说明
 - 第一个版本，xml是用xml.dom.minidom这个库来解析的，看前三个commit
 - 这个版本，cid用这正则来获取，加上了header（然并卵），bs4来解析xml
+- 现在又加了命令行参数
 
 

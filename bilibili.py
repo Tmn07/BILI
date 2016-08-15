@@ -20,9 +20,10 @@ sys.setdefaultencoding("utf-8")
 
 
 class BILI(object):
-    def __init__(self, filename='danmu'):
+    def __init__(self, filename='danmu', parser='lxml'):
         self.filename = filename
         self.xml = False
+        self.parser = parser
 
     def gzip_url(self, url):
         header = {
@@ -47,9 +48,12 @@ class BILI(object):
     def set_url(self, url):
         html = self.gzip_url(url)
         print '视频页面 gzip解压完成...'
-        soup = BeautifulSoup(html, "lxml")
-
+        # print 'soup'
+        # soup = BeautifulSoup(html)
+        # soup = BeautifulSoup(html,'lxml')
+        print 'soup'
         try:
+            soup = BeautifulSoup(html,self.parser)
             da1 = soup.find('div', id="bofqi")
             jsstring = da1.script.string
 
@@ -74,7 +78,7 @@ class BILI(object):
             fd.close()
             print(self.filename + ".xml写入完成")
 
-        soup = BeautifulSoup(data, 'lxml')
+        soup = BeautifulSoup(data, self.parser)
         danmus = soup.find_all('d')
         fw = open(self.filename + '.txt', 'w')
         print("写入弹幕ing...")
@@ -106,7 +110,7 @@ def main(argv):
         exit()
 
     try:
-        opts, args = getopt.getopt(argv[2:], 'xhvo:', ['help', 'xml', 'output='])
+        opts, args = getopt.getopt(argv[2:], 'xhvo:p:', ['help', 'xml', 'output=','parser='])
     except getopt.GetoptError, err:
         print str(err)
         exit()
@@ -121,6 +125,8 @@ def main(argv):
             b1.xml = True
         elif o in ('-o', '--output'):
             b1.filename = a
+        elif o in ('-p', '--parser'):
+            b1.parser = a
         else:
             print 'unhandled option'
             exit()

@@ -3,6 +3,7 @@
 - 目前是爬取指定av号的弹幕存到本地。原理是贴吧上看到的2233
 - 弹幕信息有内容，时间，和时间2233
 - 当初hackPKU的第三天上午撸了2,3小时的个说2233
+- 新增网页版 [传送门](http://tmn07.ren/BILI)
 - 下个版本可能做一些批量的啥啥
 
 ## 说明
@@ -23,6 +24,17 @@ and there are some argv to optional
 ### 示例
 ![python bilibili.py 5227685](./res/use.png)
 
+
+### 网页版
+- [传送门](http://tmn07.ren/BILI)
+- 防表单的重复提交——token
+- 调系统命令。权限等等。。例如读写权限，
+- bs4 的 lxml。。魔性。。
+- <?[php]  ?> 如果配置没打开短标签可能会.....
+
+![web](./res/web.png)
+
+
 ### 怎么发现的
 
 - 我是贴吧里发现这个的秘密2233
@@ -42,5 +54,6 @@ and there are some argv to optional
 - 第一个版本，xml是用xml.dom.minidom这个库来解析的，看前三个commit
 - 这个版本，cid用这正则来获取，加上了header（然并卵），bs4来解析xml
 - 现在又加了命令行参数
+- 加了网页版orz.
 
 

@@ -5,7 +5,7 @@
 ##目录结构
 - [bilibili.py](#弹幕爬虫说明) --- 弹幕爬虫
 - [index.php](#网页版) --- 弹幕爬虫网页
-- [robfloor.py]() --- 抢楼器（搬运中[原po地址](https://github.com/qq519043202/BILI_RobFloor)
+- [robfloor.py](#BILI_RobFloor) --- 抢楼器（搬运中[原po地址](https://github.com/qq519043202/BILI_RobFloor)
 - [dosign.py](#签到爬虫说明) --- 签到爬虫
 
 
@@ -67,6 +67,22 @@ and there are some argv to optional
 - 加了网页版orz.
 
 
+## BILI_RobFloor
+
+### 说明
+- 自制B站抢楼器———python3版。
+- 目前为demo版
+- 账号被封一概不负责
+- 目前基本就是封装调用了三个api。。。orz
+- 建议各种修改run函数。
+- 抢楼成功记录。result.txt
+- 看明天的战绩如何2333
+
+### 使用方法
+- 最后两行，实例化的时候传入登陆时的cookie
+- 看球去了。瞎写了几句。明天再写。。。
+
 ## 签到爬虫说明
 
 - cookie登陆，一个get请求，（crontab每天跑一下，测试中
+- 根目录下将cookie存放bilicookies文件

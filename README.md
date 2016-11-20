@@ -4,8 +4,9 @@
 
 ##目录结构
 - [bilibili.py](#弹幕爬虫说明) --- 弹幕爬虫
+- [bilibilinew.py](#bilibilinew.py) --- 弹幕爬虫新版
 - [index.php](#网页版) --- 弹幕爬虫网页
-- [robfloor.py](#BILI_RobFloor) --- 抢楼器（搬运中[原po地址](https://github.com/qq519043202/BILI_RobFloor)
+- [robfloor.py](#BILI_RobFloor) --- 抢楼器（搬运中[原po地址](https://github.com/qq519043202/BILI_RobFloor)，估计已失效
 - [dosign.py](#签到爬虫说明) --- 签到爬虫
 
 
@@ -15,10 +16,12 @@
 - 弹幕信息有内容，时间，和时间2233
 - 当初hackPKU的第三天上午撸了2,3小时的个说2233
 - 新增网页版 [传送门](http://tmn07.ren/BILI)
-- 下个版本可能做一些批量的啥啥
+- 新版本0.4，更新了下命令行参数的API，那一块节省了一半代码（偷税233
 
+### 已知bug
+- 无法获取番剧集合的弹幕（因为这页面的cid获取不同
 
-### 使用方法
+### bilibili.py 使用方法
 
 ```
 ------------------------------------------------------
@@ -34,6 +37,9 @@ and there are some argv to optional
 ### 示例
 ![python bilibili.py 5227685](./res/use.png)
 
+### bilibilinew.py
+
+![bili0.4.png](./res/bili0.4.png)
 
 ### 网页版
 - [传送门](http://tmn07.ren/BILI)

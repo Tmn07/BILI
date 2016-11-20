@@ -15,6 +15,9 @@ import time
 
 import sys, getopt
 
+# -----------
+import argparse
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
@@ -48,6 +51,7 @@ class BILI(object):
     def set_url(self, url):
         html = self.gzip_url(url)
         print '视频页面 gzip解压完成...'
+        print (url)
         try:
             soup = BeautifulSoup(html,self.parser)
             da1 = soup.find('div', id="bofqi")
@@ -61,7 +65,7 @@ class BILI(object):
         except Exception, e:
             print 'something serious happened  ->',
             print e
-            exit()
+            # exit()
 
     def get_danmu(self, cid):
         danmu_url = "http://comment.bilibili.com/" + cid + ".xml"
@@ -92,56 +96,34 @@ class BILI(object):
         print("写入完成...请查看%s.txt" % self.filename)
 
 
-def main(argv):
-    print "script_name:", argv[0]
+def main():
+    parser = argparse.ArgumentParser(description='Welcome to BILI')
+    parser.add_argument('-i', '--input', help='set the av_number to crawl')
+    parser.add_argument('-o', '--output',  help='set the filename to store')
+
+    parser.add_argument('-x','--xml', action='store_true', help='output as xml')
+    parser.add_argument('-p', '--parser',help='default use lxml parser, but sometime wrong please use html.parser')
+    parser.add_argument('-v','--version', action='store_true',help='show version')
+    # parser.add_argument('-p', action='store_true') 
+    args = parser.parse_args()
+
+    if args.version == True:
+        print("version 0.4")
+        exit()
+
     b1 = BILI()
+    # b1.setArgs(["parser","output","xml"],args)
+    if args.parser:
+        b1.parser = args.parser
+    if args.output:
+        b1.filename = args.output
+    if args.xml:
+        b1.xml = args.xml
 
-    if len(argv) > 1:
-        if argv[1] in ['-h', '--help', '-v', '--version']:
-            print argv[1]
-        elif not str(argv[1]).isdigit():
-            print "option %s not recognized" % argv[1]
-    else:
-        GetHelp()
-        exit()
-
-    try:
-        opts, args = getopt.getopt(argv[2:], 'xhvo:p:', ['help', 'xml', 'output=','parser='])
-    except getopt.GetoptError, err:
-        print str(err)
-        exit()
-    for o, a in opts:
-        if o in ('-h', '--help'):
-            GetHelp()
-            exit()
-        elif o in ('-v', '--version'):
-            print('version 0.3')
-            exit()
-        elif o in ('-x', '--xml'):
-            b1.xml = True
-        elif o in ('-o', '--output'):
-            b1.filename = a
-        elif o in ('-p', '--parser'):
-            b1.parser = a
-        else:
-            print 'unhandled option'
-            exit()
-
-    print "av_number:", argv[1], "parepering"
-    url = r"http://www.bilibili.com/video/av" + argv[1]
+    print "av_number:", str(args.input), "parepering"
+    url = r"http://www.bilibili.com/video/av" + str(args.input)
     b1.set_url(url)
 
 
-def GetHelp():
-    print('------------------------------------------------------\n\
-|the Most easy usage is :python bilibili.py av_number|\n\
-------------------------------------------------------')
-    print('and there are some argvs to optional')
-    print('-h, --help: to get this.')
-    print('-v, --version: to get the version')
-    print('-o filename, --output filename: to output danmus in filename.txt')
-    print('-x, --xml: to get filename.xml')
-
-
 if __name__ == '__main__':
-    main(sys.argv)
+    main()

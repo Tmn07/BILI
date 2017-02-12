@@ -6,8 +6,37 @@
 - [bilibili.py](#弹幕爬虫说明) --- 弹幕爬虫
 - [bilibilinew.py](#bilibilinew.py) --- 弹幕爬虫新版
 - [index.php](#网页版) --- 弹幕爬虫网页
-- [robfloor.py](#BILI_RobFloor) --- 抢楼器（搬运中[原po地址](https://github.com/qq519043202/BILI_RobFloor)，估计已失效
+- [robfloor.py](#BILI_RobFloor) --- 抢楼器
 - [dosign.py](#签到爬虫说明) --- 签到爬虫
+
+
+
+
+## BILI_RobFloor
+
+### 说明
+
+- 自制B站抢楼器，目前为多线程demo版
+- 账号被封一概不负责
+- 目前基本就是封装调用了三个api。。。orz
+
+### 使用方法
+
+- 当前目录下bilicookies文件存里登录cookie信息
+- 修改task函数，bi.run()传入相应的参数
+- 线程数，线程的等待自行调整
+
+BILI类内，run(av_num, floor, content)，av_num为要抢的视频号，floor是要抢的楼层，content是要发的评论的内容。不传入av_num则是搜索订阅的最新视频。
+
+
+
+## 直播中心签到脚本
+
+- 当前目录下bilicookies文件存里登录cookie信息
+- 然后执行dosign.py。即可
+- 若想自动化执行，找个服务器，Linux下可用 crontab设置定时任务。
+
+
 
 
 ## 弹幕爬虫说明
@@ -72,23 +101,3 @@ and there are some argv to optional
 - 现在又加了命令行参数
 - 加了网页版orz.
 
-
-## BILI_RobFloor
-
-### 说明
-- 自制B站抢楼器———python3版。
-- 目前为demo版
-- 账号被封一概不负责
-- 目前基本就是封装调用了三个api。。。orz
-- 建议各种修改run函数。
-- 抢楼成功记录。result.txt
-- 看明天的战绩如何2333
-
-### 使用方法
-- 最后两行，实例化的时候传入登陆时的cookie
-- 看球去了。瞎写了几句。明天再写。。。
-
-## 签到爬虫说明
-
-- cookie登陆，一个get请求，（crontab每天跑一下，测试中
-- 根目录下将cookie存放bilicookies文件

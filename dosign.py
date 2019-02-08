@@ -9,11 +9,14 @@ def read_cookie(cookiepath):
 	return cookies
 
 def do_sign(headers):
-	url = "http://live.bilibili.com/sign/doSign"
-	r = requests.get(url,headers=headers)
-	data = json.loads(r.text)
-	print(data['msg'])
+	url_live = "https://api.live.bilibili.com/sign/doSign"
+	r = requests.get(url_live, headers=headers)
+	print('doSign: ' + json.loads(r.text)['msg'])
 
+def silver2coin(headers):
+	url_coin = "https://api.live.bilibili.com/pay/v1/Exchange/silver2coin"
+	r = requests.get(url_coin, headers=headers)
+	print('silver2coin: ' + json.loads(r.text)['msg'])
 
 if __name__=='__main__':
 	cookies = read_cookie('./bilicookies')[0]
@@ -24,3 +27,4 @@ if __name__=='__main__':
 	    'cookie': cookies,
 	}
 	do_sign(headers)
+	# silver2coin(headers)

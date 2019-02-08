@@ -19,6 +19,10 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 
+def write_down(html, filename='test.html'):
+    with open(filename, 'w') as f:
+        f.write(html)
+
 class BILI(object):
     def __init__(self, filename='danmu', parser='lxml'):
         self.filename = filename
@@ -47,9 +51,11 @@ class BILI(object):
 
     def set_url(self, url):
         html = self.gzip_url(url)
-        print '视频页面 gzip解压完成...'
+        print u'视频页面 gzip解压完成...'
         try:
             soup = BeautifulSoup(html,self.parser)
+            # print(soup)
+            write_down(soup.text)
             da1 = soup.find('div', id="bofqi")
             jsstring = da1.script.string
 
@@ -64,7 +70,7 @@ class BILI(object):
             exit()
 
     def get_danmu(self, cid):
-        danmu_url = "http://comment.bilibili.com/" + cid + ".xml"
+        danmu_url = "https://api.bilibili.com/x/v1/dm/list.so?oid=" + cid
 
         data = self.gzip_url(danmu_url)
         print("弹幕页面 deflate解压完成...")

@@ -1,3 +1,4 @@
 bilicookies
-danmu.txt
+*.txt
+*.csv
 .idea/*

@@ -24,9 +24,18 @@ class BILI(object):
     def __init__(self, Cookie):
         self.s = requests.Session()
         self.Cookie = Cookie
+        self.csrf = self.get_csrf()
         # 重试
         request_retry = HTTPAdapter(max_retries=3)
         self.s.mount('http://', request_retry)
+
+    def get_csrf(self):
+        csrf = ''
+        cinfo = self.Cookie.split()
+        for ci in cinfo:
+            if ci.startswith('bili_jct'):
+                csrf = ci[9:-1]
+        return csrf
 
     def get_comment_num(self, av_num):
 
@@ -66,7 +75,8 @@ class BILI(object):
             'message': message,
             'type': '1',
             'plat': '1',
-            'oid': av_num
+            'oid': av_num,
+            'csrf': self.csrf
         }
 
         comment_url = "http://api.bilibili.com/x/reply/add"
@@ -93,7 +103,7 @@ class BILI(object):
             'Upgrade-Insecure-Requests': '1',
             'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36'
         }
-        # 注意type=1时不含番剧信息
+        # 旧api
         url = "http://api.bilibili.com/x/feed/pull?jsonp=jsonp&ps=10&type=0"
         try:
             r = self.s.get(url, headers=header)
@@ -133,28 +143,32 @@ class BILI(object):
                         self.send_comment(av_num, content)
                         break
                     if comment_num >= floor:
-                        print('被别人抢了。。')
+                        print(u'被别人抢了。。')
                         break
                     time.sleep(1)
 
 
 cookies = read_cookie('./bilicookies')[0]
-
+thread = 0
 
 def task(cookies):
     bi = BILI(cookies)
-    bi.run(av_num='8569498', floor=1700, content="再试一次9 9。这次要1700楼吧")
+    bi.run(av_num='6524145', floor=12, content="拿自己视频测试-7")
     # bi.run('8562550', floor=266)
     # print bi.get_comment_num(bi.get_newest())
     # bi.send_comment(bi.get_newest(),"什么")
+    # bi.send_comment('6524145', '拿自己视频测试')
     # bi.run(floor=1)
     # bi.run()
     # bi.run('8562550',floor=270)
 
-
-pool = ThreadPool(10)
-for i in xrange(10):
-    result = pool.apply_async(task, (cookies,))
-    time.sleep(1)
-pool.close()
-pool.join()
+if thread == 1:
+    threadnum = 10
+    pool = ThreadPool(threadnum)
+    for i in xrange(threadnum):
+        result = pool.apply_async(task, (cookies,))
+        time.sleep(1)
+    pool.close()
+    pool.join()
+else:
+    task(cookies)

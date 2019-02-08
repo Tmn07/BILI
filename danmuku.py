@@ -41,7 +41,7 @@ def get_danmuku(cid, filename):
 # mode 1 是输入av12345678
 # mode 2 是输入ep1234567 （番剧）
 def get_cid(aid, mode=1):
-    print(aid)
+    # print(aid)
     if mode == 1:
         url = "https://www.bilibili.com/video/av"+aid
         r = requests.get(url, headers=header)
